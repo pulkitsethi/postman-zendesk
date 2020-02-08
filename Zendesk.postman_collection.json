@@ -1,0 +1,518 @@
+{
+	"info": {
+		"_postman_id": "9df10c57-f55c-4d23-87ff-4b43d30e9986",
+		"name": "Zendesk",
+		"description": "A collection of Zendesk API Endpoints.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Organizations",
+			"item": [
+				{
+					"name": "List Organizations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c80026f7-766e-4e5b-9e83-91fe485cdf32",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { ",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{zendesk_subdomain}}.zendesk.com/api/v2/organizations",
+							"protocol": "https",
+							"host": [
+								"{{zendesk_subdomain}}",
+								"zendesk",
+								"com"
+							],
+							"path": [
+								"api",
+								"v2",
+								"organizations"
+							]
+						},
+						"description": "**Allowed For**\n* Agents"
+					},
+					"response": []
+				},
+				{
+					"name": "List Organization by User ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c80026f7-766e-4e5b-9e83-91fe485cdf32",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { ",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{zendesk_subdomain}}.zendesk.com/api/v2/users/:user_id/organizations",
+							"protocol": "https",
+							"host": [
+								"{{zendesk_subdomain}}",
+								"zendesk",
+								"com"
+							],
+							"path": [
+								"api",
+								"v2",
+								"users",
+								":user_id",
+								"organizations"
+							],
+							"variable": [
+								{
+									"key": "user_id",
+									"value": "",
+									"description": "Agent User ID"
+								}
+							]
+						},
+						"description": "**Allowed For**\n* Agents"
+					},
+					"response": []
+				},
+				{
+					"name": "Show Organization",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c80026f7-766e-4e5b-9e83-91fe485cdf32",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { ",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Organization ID matches one requested\", function () {",
+									"    var id = parseInt(pm.request.url.path[3]);",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.organization.id).to.equal(id);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{zendesk_subdomain}}.zendesk.com/api/v2/organizations/:id",
+							"protocol": "https",
+							"host": [
+								"{{zendesk_subdomain}}",
+								"zendesk",
+								"com"
+							],
+							"path": [
+								"api",
+								"v2",
+								"organizations",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "Organization ID"
+								}
+							]
+						},
+						"description": "**Allowed For**\n* Admins\n* Agents"
+					},
+					"response": [
+						{
+							"name": "Show Organization",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{zendesk_subdomain}}.zendesk.com/api/v2/organizations/:id",
+									"protocol": "https",
+									"host": [
+										"{{zendesk_subdomain}}",
+										"zendesk",
+										"com"
+									],
+									"path": [
+										"api",
+										"v2",
+										"organizations",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "35436",
+											"description": "Organization ID"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n  \"id\":                  35436,\n  \"external_id\":         \"ABC123\",\n  \"url\":                 \"https://company.zendesk.com/api/v2/organizations/35436.json\",\n  \"name\":                \"One Organization\",\n  \"created_at\":          \"2009-07-20T22:55:29Z\",\n  \"updated_at\":          \"2011-05-05T10:38:52Z\",\n  \"domain_names\":        [\"example.com\", \"test.com\"],\n  \"details\":             \"This is a kind of organization\",\n  \"notes\":               \"\",\n  \"group_id\":            null,\n  \"shared_tickets\":      true,\n  \"shared_comments\":     true,\n  \"tags\":                [\"enterprise\", \"other_tag\"],\n  \"organization_fields\": {\n    \"org_dropdown\": \"option_1\",\n    \"org_decimal\": 5.2,\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Show Many Organizations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c80026f7-766e-4e5b-9e83-91fe485cdf32",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { ",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{zendesk_subdomain}}.zendesk.com/api/v2/organizations/show_many?ids=&external_ids=",
+							"protocol": "https",
+							"host": [
+								"{{zendesk_subdomain}}",
+								"zendesk",
+								"com"
+							],
+							"path": [
+								"api",
+								"v2",
+								"organizations",
+								"show_many"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "",
+									"description": "Organization IDs"
+								},
+								{
+									"key": "external_ids",
+									"value": "",
+									"description": "Organization External IDs"
+								}
+							]
+						},
+						"description": "Accepts a comma-separated list of up to 100 organization ids or external ids.\n\n**Allowed For**\n* Admins\n* Agents"
+					},
+					"response": []
+				},
+				{
+					"name": "Autocomplete Organizations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c80026f7-766e-4e5b-9e83-91fe485cdf32",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { ",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{zendesk_subdomain}}.zendesk.com/api/v2/organizations/autocomplete?name=",
+							"protocol": "https",
+							"host": [
+								"{{zendesk_subdomain}}",
+								"zendesk",
+								"com"
+							],
+							"path": [
+								"api",
+								"v2",
+								"organizations",
+								"autocomplete"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "",
+									"description": "Start of Organization Name"
+								}
+							]
+						},
+						"description": "Returns an array of organizations whose name starts with the value specified in the name parameter.\n\n**Allowed For**\n* Agents"
+					},
+					"response": []
+				},
+				{
+					"name": "Search Organizations by External ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c80026f7-766e-4e5b-9e83-91fe485cdf32",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { ",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{zendesk_subdomain}}.zendesk.com/api/v2/organizations/search?external_id=",
+							"protocol": "https",
+							"host": [
+								"{{zendesk_subdomain}}",
+								"zendesk",
+								"com"
+							],
+							"path": [
+								"api",
+								"v2",
+								"organizations",
+								"search"
+							],
+							"query": [
+								{
+									"key": "external_id",
+									"value": "",
+									"description": "Organizationn External ID"
+								}
+							]
+						},
+						"description": "If you set the external_id value of an organization to associate it to an external record, you can use the external id to search for the organization.\n\n**Allowed For**\n* Agents"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Organization",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c80026f7-766e-4e5b-9e83-91fe485cdf32",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () { ",
+									"    pm.response.to.have.status(201); ",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"organization\": {\n        \"name\": \"Name\",\n        \"external_id\":\"\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{zendesk_subdomain}}.zendesk.com/api/v2/organizations",
+							"protocol": "https",
+							"host": [
+								"{{zendesk_subdomain}}",
+								"zendesk",
+								"com"
+							],
+							"path": [
+								"api",
+								"v2",
+								"organizations"
+							]
+						},
+						"description": "**Allowed For**\n* Admins\n \n**Note:** You must provide a unique name for each organization. Normally the system doesn't allow records to be created with identical names. However, a race condition can occur if you make two or more identical POSTs very close to each other, causing the records to have identical organization names."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Organization",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c80026f7-766e-4e5b-9e83-91fe485cdf32",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () { ",
+									"    pm.response.to.have.status(204); ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{zendesk_subdomain}}.zendesk.com/api/v2/organizations/:id",
+							"protocol": "https",
+							"host": [
+								"{{zendesk_subdomain}}",
+								"zendesk",
+								"com"
+							],
+							"path": [
+								"api",
+								"v2",
+								"organizations",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "Organization ID"
+								}
+							]
+						},
+						"description": "**Allowed For**\n* Admins"
+					},
+					"response": []
+				},
+				{
+					"name": "Bulk Delete Organizations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c80026f7-766e-4e5b-9e83-91fe485cdf32",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { ",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{zendesk_subdomain}}.zendesk.com/api/v2/organizations/destroy_many?ids=&external_ids=",
+							"protocol": "https",
+							"host": [
+								"{{zendesk_subdomain}}",
+								"zendesk",
+								"com"
+							],
+							"path": [
+								"api",
+								"v2",
+								"organizations",
+								"destroy_many"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "",
+									"description": "Organization IDs"
+								},
+								{
+									"key": "external_ids",
+									"value": "",
+									"description": "Organization External IDs"
+								}
+							]
+						},
+						"description": "Accepts a comma-separated list of up to 100 organization ids or external ids.\n\n**Allowed For**\n* Admins\n* Agents"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{zendesk_password}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "{{zendesk_email}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "315b6298-dda2-44a2-98ac-f9b14f7c7ec6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "c1f0f0d9-2861-4b6a-a5fe-90a85ac1f482",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
